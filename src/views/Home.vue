@@ -1,8 +1,13 @@
 <template>
   <div class="container">
     <div v-if="posts && posts.length" class="row">
-      <div v-for="post of posts" class="col-lg-6 post">
+      <div v-for="post in posts" class="col-lg-6 post">
         <Post :postTab="post"/>
+      </div>
+      <div v-if="posts2 && posts2.length" class="row">
+        <div v-for="post2 in posts2" class="col-lg-6 post">
+          <Post :postTab="post2"/>
+        </div>
       </div>
     </div>
   </div>
@@ -18,8 +23,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 
-
-
 export default {
   name: 'home',
   components: {
@@ -27,7 +30,8 @@ export default {
   },
   data () {
     return {
-      posts: []
+      posts: [],
+      posts2: []
     }
   },
   created () {
@@ -39,10 +43,10 @@ export default {
       .catch(e => {
         this.errors.push(e)
       })
-    axios.get(`http://www.madeinblue.com/wp-json/wp/v2/posts`)
+    axios.get(`https://www.go-interim.fr/wp-json/wp/v2/posts`)
       .then(response => {
         // JSON responses are automatically parsed.
-        this.posts = response.data
+        this.posts2 = response.data
       })
       .catch(e => {
         this.errors.push(e)
